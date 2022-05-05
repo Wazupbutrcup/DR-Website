@@ -1,0 +1,21 @@
+<div class="JC-PagesNav">
+    <div class="JC-PageBox">
+        {{#if prev}}
+            <a href="{{page_url prev}}" class="page-btn">Newer Posts</a>
+            {{else}}
+            <p>Newer Posts</p>
+        {{/if}}
+    </div>
+
+    <div class="JC-PageInfo">
+        <span class="page-number">Page {{page}} of {{pages}}</span>
+    </div>
+
+    <div class="JC-PageBox">
+        {{#if next}}
+            <a href="{{page_url next}}" class="page-btn">Older Posts</a>
+            {{else}}
+            <p>Older Posts</p>
+        {{/if}}
+    </div>
+</div>

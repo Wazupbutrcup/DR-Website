@@ -1,0 +1,117 @@
+{{!< default}}
+
+{{!-- The tag above means: insert everything in this file
+into the {body} tag of the default.hbs template --}}
+
+
+{{#post}}
+{{!-- Everything inside the #post block pulls data from the post --}}
+
+<article class="article {{post_class}}">
+
+    {{#if feature_image}}
+        <div class="article-image">
+            <div class="JC-ArticleImage" style="background-image: url({{img_url feature_image}});"></div>
+        </div>
+    {{/if}}
+
+    <header class="article-header gh-canvas">
+
+        <div class="JC-ArticleHeader">
+
+            <p class="JC-ArticleDate" datetime="{{date format="YYYY-MM-DD"}}">{{date}}</p>
+
+            <h1 class="JC-ArticleTitle">{{title}}</h1>
+
+            <hr class="JC-HR"></hr>
+
+        </div>
+
+    </header>
+
+    <section class="gh-content gh-canvas">
+        {{content}}
+    </section>
+
+    {{!--
+    <section class="article-comments gh-canvas">
+        If you want to embed comments, this is a good place to paste your code!
+    </section>
+    --}}
+
+
+    <div class="JC-ArticleAuthor">
+
+        <div class="JC-ArticleAuthor-width">
+
+            <div>
+                <section class="article-byline-content">
+                    <ul class="author-list">
+                        {{#foreach authors}}
+                        <li class="author-list-item">
+                            {{#if profile_image}}
+                            <a href="{{url}}" class="author-avatar">
+                                <img class="author-profile-image" src="{{img_url profile_image size="xs"}}" alt="{{name}}" />
+                            </a>
+                            {{else}}
+                            <a href="{{url}}" class="author-avatar author-profile-image">{{> "icons/avatar"}}</a>
+                            {{/if}}
+                        </li>
+                        {{/foreach}}
+                    </ul>
+                    <div class="article-byline-meta">
+                        <h4 class="author-name">{{authors}}</h4>
+                    </div>
+                </section>
+            </div>
+
+            <div style="border-top: 2px solid #090e23;margin-top: 15px;width: 100%;padding: 30px 0px 0px;text-align: center;text-transform: uppercase;font-weight: 700;opacity: 0.75;letter-spacing: 2px;font-size: 14px;">
+                <a href="{{url}}">Read more from {{authors}}</a>
+            </div>
+
+        </div>
+
+    </div>
+
+</article>
+
+<!-- 
+{{!-- A signup call to action is displayed here, unless viewed as a logged-in member --}}
+{{#unless @member}}
+<section class="footer-cta">
+    <div class="inner">
+        <h2>Sign up for more like this.</h2>
+        <a class="footer-cta-button" href="#/portal">
+            <div>Enter your email</div>
+            <span>Subscribe</span>
+        </a>
+        {{!-- ^ This looks like a form element, but it's just a link to Portal,
+        making the form validation and submission much simpler. --}}
+    </div>
+</section>
+{{/unless}}
+-->
+
+
+{{!-- Read more links, just above the footer --}}
+<aside class="read-more-wrap">
+    <div class="read-more inner">
+
+        {{!-- The {#get} helper below fetches some of the latest posts here
+        so that people have something else to read when they finish this one.
+
+        This query gets the latest 3 posts on the site, but adds a filter to
+        exclude the post we're currently on from being included. --}}
+
+        {{#get "posts" filter="id:-{{id}}" include="authors" limit="3" as |more_posts|}}
+            {{#if more_posts}}
+                {{#foreach more_posts}}
+                    {{> "post-card"}}
+                {{/foreach}}
+            {{/if}}
+        {{/get}}
+
+    </div>
+</aside>
+
+{{/post}}

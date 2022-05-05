@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="{{@site.locale}}">
+<head>
+
+    {{!-- Basic meta - advanced meta is output with {ghost_head} below --}}
+    <title>{{meta_title}}</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    {{!-- Theme assets - use the {asset} helper to reference styles & scripts,
+    this will take care of caching and cache-busting automatically --}}
+    <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
+
+    {{!-- This tag outputs all your advanced SEO meta, structured data, and other important settings,
+    it should always be the last tag before the closing head tag --}}
+    {{ghost_head}}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/69ef69b758.js" crossorigin="anonymous"></script>
+
+    <title>DrugRun</title>
+
+    <meta name="theme-color" content="#7463E4">
+
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer=""></script>
+
+    <style>
+        * {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body,
+html {
+	max-width: 100%;
+	overflow-x: hidden;
+	height: 100%;
+}
+
+:root {
+	--body: #111318;
+    --panel: #181b21;
+    --panelLight: #1d2027;
+    --panelMain: #15171d;
+	--accent: #2ebf2e;
+	--accentHover: #4c8c27;
+	--text: #686f7d;
+	--titleColor: #c8cedc;
+	--icons: #7d90b1;
+	--boxShadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.1);
+    --boxShadow2: 0 10px 15px -3px rgba(0,0,0,20%), 0 4px 6px -2px rgba(0,0,0,10%);
+}
+
+body {
+	font-family: 'Poppins', sans-serif;
+	color: var(--text);
+	background: var(--body);
+}
+
+a {
+	text-decoration: inherit;
+	color: #fff;
+}
+
+/* HEADER */
+
+.JC-Header {
+    background: linear-gradient(0deg, #111318, rgba(19,47,34,57%)),url(https://media.discordapp.net/attachments/783792058799489094/915369357398384650/2021-09-21_21.32.02.png);
+    height: 600px;
+    background-size: cover;
+    background-position: top;
+}
+
+.JC-HeaderContent {
+    position: relative;
+}
+
+.JC-HeaderContent-between {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    height: 250px;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.JC-LogoLink {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.JCBranding {
+    width: 250px;
+    position: absolute;
+    margin-top: -150px;
+    transition: 0.3s ease;
+}
+
+.JCBranding:hover {
+    transition: 0.3s ease;
+    filter: drop-shadow(0px 0px 8px var(--accent));
+}
+
+.JC-HeaderContent-betRight {
+    display: flex;
+    align-items: center;
+    transition: 0.3s ease;
+    text-align: left;
+    width: 300px;
+}
+
+.JC-HeaderContent-betLeft {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    text-align: right;
+    transition: 0.3s ease;
+    width: 300px;
+}
+
+.JC-HeaderContent-big {
+    color: var(--accent);
+    font-size: 18px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.JC-HeaderContent-small {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-top: -3px;
+    font-weight: 700;
+}
+
+.JC-HeaderContent-betLeft .JC-HeaderContent-icon {
+    margin-left: 15px;
+}
+
+.JC-HeaderContent-betRight .JC-HeaderContent-icon {
+    margin-right: 15px;
+}
+
+.JC-HeaderContent-betRight:hover {
+    transition: 0.3s ease;
+    cursor: pointer;
+    filter: drop-shadow(0px 0px 5px #496b35);
+}
+
+.JC-HeaderContent-betLeft:hover {
+    transition: 0.3s ease;
+    cursor: pointer;
+    filter: drop-shadow(0px 0px 5px #496b35);
+}
+
+.JC-HeaderContent-icon {
+    width: 50px;
+    color: var(--accent);
+}
+
+.JC-navBar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 80px;
+}
+
+.JC-navBar-width {
+    width: 1300px;
+    background: var(--panelLight);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    border-radius: 10px;
+    padding: 0px 25px;
+    box-shadow: var(--boxShadow2);
+}
+
+.JC-navBar-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.JC-navLink {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    font-size: 18px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    padding: 20px 15px;
+    color: #4d566a;
+    text-decoration: none;
+    transition: .3s ease;
+}
+
+.JC-navLink:hover {
+    color: #fff;
+    transition: 0.3s ease;
+}
+
+.JC-navLink i {
+    margin-right: 10px;
+    opacity: 1;
+    font-size: 20px;
+}
+
+.JC-navLink-active {
+    position: relative;
+}
+
+.JC-navLink-active::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 20%;
+    height: 5px;
+    top: 60px;
+    background: var(--accent);
+    -webkit-transition: 0.2s ease-out;
+    transition: 0.2s ease-out;
+    border-radius: 5px;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    -webkit-filter: drop-shadow(0px 0px 5px var(--accent));
+    filter: drop-shadow(0px 0px 5px var(--accent));
+}
+
+.JC-navStore {
+    background: var(--accent);
+    padding: 15px 70px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+    border-radius: 20px;
+    filter: drop-shadow(0px 0px 4px var(--accent));
+    transition: 0.3s ease;
+}
+
+.JC-navStore:hover {
+    filter: drop-shadow(0px 0px 8px var(--accent));
+    transition: 0.3s ease;
+}
+
+.JC-Footer {
+    background: #15171d;
+    margin-top: 80px;
+}
+
+.JC-FooterWidth {
+    padding: 30px 20px;
+    width: 1200px;
+    margin: 0 auto;
+}
+
+.JC-FooterText-main {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.JC-FooterText-small {
+    font-size: 14px;
+    margin-top: -4px;
+}
+
+/* MEDIA RESPONSIVES */
+
+@media only screen and (max-width: 1350px) {
+    .JC-navBar-width {
+        width: 90%;
+    }
+
+    .JC-HeaderContent-between {
+        width: 90%;
+    }
+
+    .JC-FooterWidth {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 960px) {
+    .JCBranding {
+        position: relative;
+    }
+
+    .JC-HeaderContent {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .JC-FooterWidth {
+        text-align: center;
+    }
+
+    .JC-Header {
+        min-height: 600px;
+        height: auto;
+    }
+    
+    .JCBranding {
+        margin-top: 50px;
+    }
+
+    .JC-HeaderContent-between {
+        height: auto;
+        margin-top: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
+
+    .JC-HeaderContent-betRight {
+        margin-top: 10px;
+    }
+
+    .JC-navBar-width {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        padding: 15px;
+    }
+
+    .JC-navLink {
+        justify-content: flex-start;
+        border-bottom: 2px solid #21252d;
+        width: 100%;
+    }
+
+    .JC-navBar-left {
+        align-items: flex-start;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .JC-navBar-right {
+        display: none;
+    }
+
+    .JC-navLink-active::after {
+        display: none;
+    }
+}
+    </style>
+
+    <style>
+        .gh-content>blockquote, .gh-content>dl, .gh-content>ol, .gh-content>p, .gh-content>ul {
+            font-family: 'Raleway', sans-serif;
+        }
+        
+        .post-card {
+            background: var(--panelMain);
+            border-radius: 5px;
+            border: 2px solid var(--buttonBorder);
+            box-shadow: var(--boxShadow);
+            border-radius: 10px !important;
+        }
+
+        .post-card-content {
+            padding: 25px;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .post-card-title {
+            text-align: center;
+            color: #fff;
+        }
+
+        .viewport>main {
+            margin-top: -150px;
+        }
+
+        .author-profile {
+            background: #15171d;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            margin: 40px 0px;
+        }
+
+        .post-card-excerpt p {
+            overflow-y: hidden;
+        }
+
+        .author-profile p {
+            color: #9ba4a4;
+        }
+
+        .author-profile-social-link {
+            color: #9ba4a4;
+            transition: 0.3s ease;
+        }
+
+        .author-profile-social-link:hover {
+            color: #fff;
+            transition: 0.3s ease;
+        }
+
+        .post-card-image {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            border-bottom-left-radius: 0px !important;
+            border-bottom-right-radius: 0px;
+        }
+
+        .post-card-meta {
+            width: 100%;
+        }
+
+        .post-card-metaMain {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            background: #111318;
+            border-top: none;
+            font-weight: 800;
+            color: #54576c;
+            text-transform: none;
+            cursor: default;
+            height: 55px;
+            border-radius: 10px!important;
+        }
+
+        .post-card-metaLeft {
+            display: flex;
+            padding: 15px;
+            align-items: center;
+        }
+
+        .post-card-metaRight {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--accent);
+            margin-left: 15px;
+            border-left: 2px solid #111318;
+            padding-left: 20px;
+        }
+
+        .post-card-excerpt p {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 700;
+            margin: 30px 0px;
+            color: #9698a2;
+        }
+
+        .post-card-metaLeft time {
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 13px;
+            color: var(--accent);
+            margin-left: 15px;
+        }
+
+        .static-avatar {
+            box-shadow: inherit !important;
+        }
+
+        .page-rules .gh-canvas {
+            display: flex !important;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+        .page-rules .article-header {
+            display: none !important;
+        }
+
+        .post-card-excerpt p {
+            -webkit-line-clamp: 4;
+            text-align: center;
+        }
+
+        .page-rules .kg-bookmark-container, .kg-bookmark-container:hover {
+           background: var(--buttons) !important; 
+        }
+
+        .page-rules .kg-bookmark-title {
+            color: #5a5f84 !important;
+            font-weight: 700;
+            font-size: 24px;
+        }
+
+        .kg-bookmark-content {
+            min-height: 300px;
+            justify-content: space-between;
+        }
+
+        .article-tag a {
+            color: #fff;
+            background: #227e78;
+            padding: 10px 15px;
+            border-radius: 80px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            font-weight: 800;
+        }
+
+        .gh-content>[id] {
+            color: #6d7299 !important;
+        }
+
+        .article-title {
+            color: #fff;
+        }
+
+        .gh-canvas {
+            background: var(--panelMain);
+            padding: 45px;
+            width: 1200px;
+            box-shadow: var(--boxShadow);
+            margin: 0 auto;
+            border-radius: 5px;
+        }
+
+        .post-card-large .post-card-excerpt p {
+            text-align: center;
+        }
+
+        .post-card-large .post-card-image {
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px !important;
+            border-top-right-radius: 0px !important;
+            border-bottom-right-radius: 0px !important;
+        }
+
+        .JC-PagesNav {
+            width: 1200px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0 auto;
+            background: var(--panelMain);
+            padding: 15px 25px;
+            border-radius: 5px;
+            margin-top: 25px;
+        }
+
+        .gh-content a {
+            color: var(--accent) !important;
+        }
+
+        .gh-content a:hover {
+            color: var(--accentHover) !important;
+        }
+
+        .author-profile h1 {
+            color: var(--accent);
+        }
+
+        .JC-PageInfo {
+            color: #959595;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .JC-PageBox {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 15px;
+            background: #111318;
+            width: 150px;
+            text-align: center;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+        }
+
+        .post-card-content-link {
+            transition: 0.3s ease;
+        }
+
+        .post-card-content-link:hover {
+            opacity: 0.6;
+            transition: 0.3s ease;;
+        }
+
+        .read-more-wrap {
+            background: var(--body) !important;
+            border-bottom: inherit !important;
+            margin-bottom: 50px;;
+        }
+
+        :root {
+            --ghost-accent-color: #3a415f !important;
+            --brandcolor: #4975da !important;
+        }
+
+        hr {
+            border-top: 3px solid #1e2028 !important;
+        }
+
+        .JC-ArticleImage {
+            background-size: cover;
+            background-position: 50%;
+            min-height: 300px;
+            border-radius: 10px 10px 0px 0px;
+            width: 1200px;
+            margin: 0 auto;
+            margin-top: 50px;
+            padding: 20px 0px;
+        }
+
+        .JC-ArticleAuthor .author-profile-image {
+            width: 35px;
+            height: 35px;
+            border: 1px solid #4c5070;
+        }
+
+        .JC-ArticleAuthor .author-avatar {
+            display: flex;
+            align-items: center;
+            border: inherit !important;
+            justify-content: center;
+        }
+
+        .JC-ArticleAuthor {
+            width: 1200px;
+            margin: 0 auto;
+            background: var(--panelMain);
+            margin-top: -5px;
+            border-radius: 0px 0px 10px 10px;
+            padding: 25px 0px;
+        }
+
+        p.JC-ArticleDate {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 15px;
+        }
+
+        .JC-ArticleTitle {
+            margin-top: 15px;
+        }
+
+        .JC-ArticleAuthor-width {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 15px 0px;
+            margin: 0px 50px;
+            border-radius: 10px;
+            background: var(--body);
+        }
+
+        .gh-portal-triggerbtn-wrapper {
+            display: none !important;
+        }
+
+        @media only screen and (max-width: 1250px) {
+            .gh-canvas {
+                width: 90%;
+            }
+
+            .JC-PagesNav {
+                width: 90%;
+            }
+            
+            .JCFot-bottom {
+                padding: 25px;
+            }
+
+            .JC-ArticleImage {
+                width: 90%;
+            }
+        }
+
+        @media only screen and (max-width: 1000px) {
+            .post-card-large .post-card-image {
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 0px !important;
+                border-top-right-radius: 5px !important;
+                border-bottom-right-radius: 0px !important;
+            }
+        }
+
+        @media only screen and (max-width: 960px) {
+            .viewport>main {
+                margin-top: 0px !important;
+            }
+        }
+
+        @media only screen and (max-width: 760px) {
+            .JC-PagesNav {
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .JC-PageBox {
+                width: 100%;
+                height: 70px;
+            }
+
+            .JC-PageInfo {
+                margin: 15px 0px;
+            }
+        }
+    </style>
+
+
+</head>
+<body class="{{body_class}}">
+
+    <!-- JC HEADER -->
+
+    <div class="JC-Header">
+
+        <div class="JC-HeaderContent">
+
+            <div class="JC-HeaderContent-between">
+
+                <div class="JC-HeaderContent-betLeft copyIP" data-clipboard-text="mc.drugrun.net" onclick="copied()">
+                    <svg class="JC-HeaderContent-icon" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M4,2H20A2,2 0 0,1 22,4V20A2,2 0 0,1 20,22H4A2,2 0 0,1 2,20V4A2,2 0 0,1 4,2M6,6V10H10V12H8V18H10V16H14V18H16V12H14V10H18V6H14V10H10V6H6Z" />
+                    </svg>
+                    <div class="JC-HeaderContent-col">
+                        <p class="JC-HeaderContent-big" id="changeText">mc.drugrun.net</p>
+                        <p class="JC-HeaderContent-small"><span id="playerCount">0</span> players online</p>
+                    </div>
+
+                </div>
+
+                <a href="https://discord.com/invite/HQHf5bP"><div class="JC-HeaderContent-betRight">
+                    <svg class="JC-HeaderContent-icon" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M22,24L16.75,19L17.38,21H4.5A2.5,2.5 0 0,1 2,18.5V3.5A2.5,2.5 0 0,1 4.5,1H19.5A2.5,2.5 0 0,1 22,3.5V24M12,6.8C9.32,6.8 7.44,7.95 7.44,7.95C8.47,7.03 10.27,6.5 10.27,6.5L10.1,6.33C8.41,6.36 6.88,7.53 6.88,7.53C5.16,11.12 5.27,14.22 5.27,14.22C6.67,16.03 8.75,15.9 8.75,15.9L9.46,15C8.21,14.73 7.42,13.62 7.42,13.62C7.42,13.62 9.3,14.9 12,14.9C14.7,14.9 16.58,13.62 16.58,13.62C16.58,13.62 15.79,14.73 14.54,15L15.25,15.9C15.25,15.9 17.33,16.03 18.73,14.22C18.73,14.22 18.84,11.12 17.12,7.53C17.12,7.53 15.59,6.36 13.9,6.33L13.73,6.5C13.73,6.5 15.53,7.03 16.56,7.95C16.56,7.95 14.68,6.8 12,6.8M9.93,10.59C10.58,10.59 11.11,11.16 11.1,11.86C11.1,12.55 10.58,13.13 9.93,13.13C9.29,13.13 8.77,12.55 8.77,11.86C8.77,11.16 9.28,10.59 9.93,10.59M14.1,10.59C14.75,10.59 15.27,11.16 15.27,11.86C15.27,12.55 14.75,13.13 14.1,13.13C13.46,13.13 12.94,12.55 12.94,11.86C12.94,11.16 13.45,10.59 14.1,10.59Z" />
+                    </svg>
+                    <div class="JC-HeaderContent-col">
+                        <p class="JC-HeaderContent-big">Discord Server</p>
+                        <p class="JC-HeaderContent-small"><span id="memberCount">0</span> players online</p>
+                    </div>
+                </div></a>
+
+            </div>
+
+            <a href="#" class="JC-LogoLink">
+                <img src="https://cdn.discordapp.com/attachments/964165924158591036/964311350434209822/logo.png" class="JCBranding" alt="logo"/>
+            </a>
+
+        </div>
+
+        <div class="JC-navBar">
+
+            <div class="JC-navBar-width">
+
+                <div class="JC-navBar-left">
+                    <a href="https://drugrun.net/" class="JC-navLink"><i class="fas fa-home"></i> Home</a>
+                    <a href="https://drugrun.net/rules/" class="JC-navLink"><i class="fas fa-book"></i> Rules</a>
+                    <a href="https://drugrun.net/votes/" class="JC-navLink"><i class="fas fa-poll"></i> Vote</a>
+                    <a href="https://drugrun.net/suggestions/" class="JC-navLink"><i class="fas fa-plus-circle"></i> Suggestion</a>
+                    <a href="https://drugrun.net/staff/" class="JC-navLink"><i class="fas fa-users"></i> Staff</a>
+                    <a href="https://drugrun.net/bans/" class="JC-navLink"><i class="fas fa-check-square"></i> Bans</a>
+                </div>
+
+                <div class="JC-navBar-right">
+                    <a href="https://store.drugrun.net" class="JC-navStore">Store</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- JC HEADER -->
+
+<div class="viewport">
+
+    <main>
+        {{!-- All other templates get inserted here, index.hbs, post.hbs, etc --}}
+        {{{body}}}
+    </main>
+
+    {{!-- The global footer at the very bottom of the screen --}}
+
+
+</div>
+{{!-- /.viewport --}}
+
+    <!-- JC FOOTER -->
+
+        <div class="JC-Footer">
+
+            <div class="JC-FooterWidth">
+
+                <p class="JC-FooterText-main">Copyright &copy; DrugRun 2021. All Rights Reserved.</p>
+                <p class="JC-FooterText-small">We are not affliated with Mojang AB.</p>
+
+            </div>
+
+        </div>
+
+        <!-- JC FOOTER -->
+
+{{!-- Scripts - handle member signups, responsive videos, infinite scroll, floating headers, and galleries --}}
+    <!-- SCRIPT -->
+    <script>
+        new ClipboardJS('.copyIP');
+    </script>
+
+    <script>
+        window.onload = function vote() {
+            axios.get("https://api.mcsrvstat.us/2/mc.drugrun.net").then(function(e) {
+                200 == e.status && (document.getElementById("playerCount").innerText = e.data.players.online)
+            }), axios.get("https://discord.com/api/guilds/208689441664008192/widget.json").then(function(e) {
+                200 == e.status && (document.getElementById("memberCount").innerText = e.data.presence_count)
+            });
+        };
+    </script>
+
+    <script>
+        function copied() {
+            var x = document.getElementById("changeText");
+            if (x.innerHTML === "mc.drugrun.net") {
+                x.innerHTML = "IP Copied";
+                setTimeout(function(){revertBack()}, 2000);
+            } else {
+                x.innerHTML = "mc.drugrun.net";
+            }
+        }
+    </script>
+
+    <script>
+        function revertBack() {
+            var x = document.getElementById("changeText");
+            if (x.innerHTML === "IP Copied") {
+                x.innerHTML = "mc.drugrun.net";
+            } else {
+                x.innerHTML = "mc.drugrun.net";
+            }
+        }
+    </script>
+
+<script
+    src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous">
+</script>
+<script src="{{asset "built/casper.js"}}"></script>
+<script>
+$(document).ready(function () {
+    // Mobile Menu Trigger
+    $('.gh-burger').click(function () {
+        $('body').toggleClass('gh-head-open');
+    });
+    // FitVids - Makes video embeds responsive
+    $(".gh-content").fitVids();
+});
+</script>
+
+{{!-- Ghost outputs required functional scripts with this tag - it should always be the last thing before the closing body tag --}}
+{{ghost_foot}}
+
+</body>
+</html>
